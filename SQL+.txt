@@ -1,0 +1,552 @@
+> Data - Any raw piece of information that can be recorded and processed.
+> Collection of meaningful data is known as information.
+
+> DATABASE - collection of data in a format that can be easily accessed.(Digital)
+
+Databse Management System(DBMS) :- 
+	> It is a software to manage a database.(communication with the database in form of request and response)
+	
+	{ user --> DBMS --> Databse }
+	
+	> The database cannot be directly be accessed by the user. Here comes the DBMS. DBMS acts as a medium to access the data stored in the database.
+	> We need a language to give command to the DBMS to perform various actions to our data stored in the Database. This langugae is SQL(structured query language). 
+	
+	1. Database - where data is stored.
+	2. DBMS - Software that manages the data in the database.
+	3. SQL - Language we use to give commands to the DBMS(create, read, update, delete data)
+	4. User - Interacts with DBMS using SQL.
+	
+Two types of Databases :- 1. Relational Database Management System
+						  2. Non - Relational Database Management System
+
+	> Relational Database Management System(RDMS):-
+		- Data stored in form of tables.
+		- Each table has :- Rows(record) -> actual data entries 
+							Columns(fields/attribute) -> properties of the data
+		- Relationships can be established between tables using keys.
+		example :- MySQL; ORACLE; PostgreSQL
+		- SQL used to work with RDMS.
+		
+	> Non - Relational Database Management System : - 
+		- No SQL is used.
+		- Data not stored in form of tables.
+		example :- mongoDB
+		
+		
+  ORACLE : - It is a Relational database which is used to store data or information permanently. 
+		   {the package includes the DBMS engine(the Manager) and the Database (the storage)}
+		   
+  SQL :- (Structured Query language)
+	- Programming Language used to interact with the relational databases.
+	- The initial term used for sql was "sequel" -> Structured English Query Language.
+	- It was introduced by IBM. 
+	- Every SQL query should end with semicoln.
+	- sql is not case sensitive.
+	
+	SQL Sub - Languages:- 1. DDL (Data Defination Language)
+						  2. DML (Data Manipulation Language)
+						  3. DCL (Data Control Language)
+						  4. DQL (Data Query Language)
+						  5. TCL (Transaction Control Language)
+						  
+	1. DDL (Data Defination Language):- 
+		> Used to define and modify the structure of the database objects (tables, schemas, etc.).
+	
+		- Create - Create a new table/Database
+		- Alter - Modify an existing table(add column, change Datatype)
+		- Drop - Delete a table/Database
+		- Turncate - Remove all records (faster than Delete)
+		
+	2. DML (Data Manipulation Language):-
+		> Used to Manipulate (change) data inside tables.
+		
+		- Insert - Add new data
+		- Update - Modify existing data
+		- Delete - Remove data
+		- Merge - (oracle 9i onwards)
+		
+	3. DCL (Data Control Language):- 
+		> Deals with permissions and security.
+		
+		- Grant - Give access to the user
+		- Revoke - Take back access
+		
+	4. DQL (Data Query Language):-  
+		> Used to fetch data.
+		
+		- Select - Retrive data from tables
+		
+	5. TCL (Transaction Control Language):-
+		> Manages transactions ( a group of SQL statements treated as one unit).
+		
+		- Commit - Save changes permanently
+		- Rollback - Undo changes
+		- Savepoint - Make a point in a transaction
+		
+  Datatypes :- It tells us which type of data present in a column.
+	There are three types of datatypes:- 1. Char
+										 2. Number
+										 3. Date
+	
+	1. Char :-  - It is used to store "Alphanumeric" data in bytes.
+				- Maximum limit is 2000 bytes.
+				- By default every character has one byte.
+				- Character datatype is automatically "blank padded".
+				
+				"Blank Padded" :- Adding extra spaces at the end of a string by the ORACLE server automatically, when it is shorter than the defined length.
+				
+		Varcahr2 (Maxsize) :-  - Oracle 7.0 introduced Varchar2() datatypes.
+							   - It is used to store variable length alphanumeric data in bytes.
+							   - Maximum limit is 4000 bytes.
+							   - whenever we are using Varchar2() datatype and if we try to store less no. of characters than the max size alloted;
+							     then Oracle server doesn't add blank spaces in place of remaining bytes. This is called variable length alphanumeric storage.
+								 Hence space is not wasted.
+								
+				Syntax :- columnname varchar2 (maxsize)
+				
+		Varchar (Maxsize) :-   - Prior to Oracle 7.0, if we want to store variable length aplhanumeric data then we are using varchar datatype.
+							   - Maxsize is upto 2000 bytes.
+							   - From oracle 7.0 onwads if we are creating a column with varchar() datatype also then Oracle server internally converts varchar() into Varchar2().
+							   - Oracle server doesn't add blank space for varchar().
+							   
+				Syntax :- columnname Varchar(size)
+				
+		Varchar()
+		- It is with all relational database.
+		- Store upto 2000 bytes.
+		
+		varchar2()
+		- It is an oracle standard so it works only for oracle 
+		- stores upto 4000 bytes.
+		
+	Practically differences between char() and Varchar()
+	> char():- 
+		SQL > create table student(name char(10), age (2));
+		  Table created
+		SQL > insert into student (name, age)
+			   values ('Ankush', '20');
+		 1 row created
+		SQL > select * from student;
+		  name   age
+		 ------------
+		 Ankush  20
+		SQL > select length(name) from student;
+		  length(name)
+		  -------------
+			   10
+			   
+			   
+	> Varchar():-
+		SQL > create table family (name varchar(10), age varchar(3));\
+		  Table created
+		SQL > insert into family (name, age)
+			  values ('Ajay', '20');
+		  1 row created
+		SQL > select * from family;
+		  name    age
+		  -----------
+		  Ajay     20
+		SQL > select length(name), length(age) from family;
+		  length(name)   lenght(age)
+		  --------------------------
+		      4              2
+			  
+	Note:- If we want to store more than 4000 bytes of alphanumeric we should use LONG datatype.
+		   - Long dataytpe stores upto 2GB.
+		   
+		Syntax :- columnname long;
+		
+	Note:- There can only be one long column in total and we are also not allowed to create a primary key for long data type column.
+	
+	
+	2. Number(P.S.) :-
+						P :- Precission (total no. of digits)
+						S :- Scale (number of digits allowed after decimal  point)
+						
+		Syntax :- columnname name (p,s)
+		
+		SQL > create table numbers (num1 number(7,2));
+		  Table created
+		SQL > insert into numbers values (12345.67);
+		  1 row created
+		SQL > insert into numbers values (123456.7);
+		  insert into numbers values (123456.7);
+								      *
+		error > value larger than specified precision allowed for this column
+		
+	Note :- whenever we are using number(p,s) then total no of digits before decimal places should be upto (p-s) {diff of (p&s)} no.of digits.{less ok but more not ok}.
+	
+		SQL > insert into numbers values (12345.6789);
+		  1 row created
+		  > 12345.68 -> will be stored
+	
+	note :- Oracle server doesn't return any error whenever we are passing more no. of digits after the decimal point than specified in the number(p,s).
+			It will internally automatically round that number based on specified scale.
+			
+	> Number(p) :- - It used to store fixed number only.
+				   - Maximum length of precision is upto 38.
+				   
+		SQL > create table number_test(num1 number(40));
+		 > Error  -  create table number_test(num1 number(40));
+														  *
+			- numberic precission specifier is out of range (1 to 38)
+			
+	3. Date :-  - It is used to store date in oracle date format.
+				- In oracle by default date format is "dd-mm-yyyy".
+				
+		SQL > select sysdate from dual;
+		   SYSDATE
+		  ---------
+		  27-AUG-25
+		  
+		SQL > create table holiday( event_name varchar2(50), event_date date);
+		  Table created
+		SQL > insert into holiday (event_name, event_date) values ( 'republic day', to_date('26-01-2025','dd-mm-yyyy'));
+		  1 row created
+		SQL > select * from holiday
+		 event_name        event_date
+		 -----------------------------
+		 republic day     26-JAN-2025
+	
+Once we open SQL*Plus:- 
+	1. To view user -
+	SQL > show user ;
+	  USER is "SCOTT"
+	  
+	2. To clear screen
+	SQL > cl scr or shift + delete
+	
+	3. To view all the tables present in the database
+	SQL > select * from tab;
+	
+	4. To view perticular table 
+	SQL > select * from holiday
+	
+	-> In SQL*plus tool by default each line is having 80 bytes. whenever the relational table has lines more than 80 bytes then the table is not displayed properly.
+	   To overcome this we use the following syntax :- 
+			 set linesize 100
+			 
+	-> In SQL*plus tool by default each page is having 14 lines. Whenever our relational table has more than 14 lines then columns are automatically repeated.
+	   To overcome this we use the following syntax :- 
+	         set pagesize 100
+			
+	-> If we have to view all SQL*plus tool comment then we have to use the following Syntax:-
+			 show all;
+			 
+1. DDl (Data Defination Language) :- It contains SQL commands that defines, create, alter or remove database objects (like tables, views, indexes, etc.)
+									 It deals with sturcture of the database rather than the data inside the table.
+									 
+									 a. creat
+									 b. alter 
+									 c. drop
+									 d. turncate
+									 e. rename (10i)
+									 
+	a. CREATE :- It is used to create database object like tables, views, indexes, etc. 
+	
+	Syntax for creating table:- 
+	SQL > create table tablename ( columnname1 datatype(size), columnname2 datatype(size),...);
+	
+	CREATE TABLE:- 
+	
+	SQL > create table students (roll_no number(10), name varchar2(10), marks number(3));
+	  Table created
+	SQL > desc student;
+	-> It will display the structure of the student table.
+	
+	b. ALTER :- - It is used to change the structure of the existing table.
+				- There are 3 variations of the alter :- 
+					1. alter...add
+					2. alter...modify
+					3. alter...drop
+					
+	1. alter...add :- It is used to add number of column into existing column.
+	
+	Syntax:- alter table tablename add (columnname3 datatype(size)...);
+	
+	SQL > alter table students add ( phno number(10));
+	  table added
+	  
+	SQL > desc students
+	   name			null?  	Type
+	  ---------------------------------
+	  ROLL_NO			   number(10)
+	  name				   varchar2(10)
+	  marks				   number(3)
+	  phno				   number(10)
+	  
+	2. alter...modify :- it is used to change the column datatype or column datatype size only.
+	 
+	Syntax :- alter table tablename modify (columnname1 datatype(size)...);
+	 
+	SQL > alter table students modify (roll_no number(12));
+	  Table altered
+	  
+	Note :- The column to be modified must be empty to change datatype.
+	
+	SQL > desc students
+	   name			null?  	Type
+	  ---------------------------------
+	  ROLL_NO			   number(12) <<-- changed
+	  name				   varchar2(10)
+	  marks				   number(3)
+	  phno				   number(10)
+	  
+	3. alter...drop :- It is used to remove column from the existing table,
+	
+	- Method 1 > If we want to drop a single column data at a time without using parenthesis.
+	
+	Syntax :- alter table tablename drop column columname3;
+	
+	SQL > alter table students drop column phno;
+	  Table altered
+	  
+	SQL > desc students
+	   name			null?  	Type
+	  ---------------------------------
+	  ROLL_NO			   number(12)
+	  name				   varchar2(10)
+	  marks				   number(3) <<-- phno droped
+	  
+	- Method 2 > If we want to drop single or multiple columns by using "()".
+	
+	Syntax :- alter table tablename drop (columnname1, columnname2...);
+	
+	SQL > alter table students drop (name, marks);
+	  Table altered
+	  
+	SQL > desc students
+	   name			null?  	Type
+	  ---------------------------------
+	  ROLL_NO			   number(12) <<-- multiple columns droped
+	  
+	Note:- We cannot drop the only remaining last column.
+		   It will show error in sql query.
+		   
+	4. Drop :-  - It is used to remove database object from database.
+				- In all relational database we are allowed to drop only one database object at a time.
+				
+	Syntax :- drop object-type objectname;
+	
+	SQL > drop table number_test;
+	
+	
+	* Dropping a Table :-	- Before oracle 10g, if we were dropping a table then it was permanently removed from database.
+							- After oracle 10g, if we drop a table then it goes to recycle bin to get back from recycle bin we need to follow the syntax.
+							
+	Syntax :- flashback table tablename to before drop;
+	
+	SQL > flashback table number_test to before drop;
+	
+	* To drop table permanently:- 
+	
+	Syntax :- drop table tablename purge;
+	
+	* Recycle bin:-	 - Oracle 10g introduced recyclebin which is used to store dropped tables.
+					 - If we want to view recyclebin;
+	
+	Syntax :- show recyclebin;
+	
+	* To drop a table from recyclebin
+	Syntax :- purge table tablename;
+	
+	SQL > create table batman ( fly number(10));
+	  Table created 
+	SQL > drop table batman;
+	  Table droped
+	SQL > show recyclebin;
+	SQL > purge table batman;
+	SQL > show recyclebin;
+	
+	* To drop all tables from recyclebin:- 
+	Syntax :- purge recyclebin;
+	
+	Note :- In oracle, through recyclebin, we can get dropped table back but not dropped column.
+	
+	4. Truncate	:-	- Oracle 7.0 introduced truncate command.
+					- Whenever we use truncate command table total data permanently deleted from table.
+					
+	Syntax :- truncate table number_test;
+	
+	SQL > create table students as select * from emp; -->> copies table from emp with all the data
+	SQL > select * from students;
+	SQL > truncate table students;
+	SQL > select * from students;
+	  no row selected
+	  
+	5. Rename :- It is used to rename a column & table
+	
+	* Rename a table:- 
+	
+	Syntax :- rename oldname to newname;
+	
+	SQL > create table while as select * from emp;
+	  table created
+	SQL > rename while to if;
+	  Table renamed
+	  
+	* Rename a column :-
+	
+	Syntax :- alter table tablename rename column oldcolumn to newcolumn;
+	
+	SQL > alter table while rename column job to work;
+	
+	
+2. DML(Data Manipulation Language) :-	- DML commands are used to manipulate data in a table.
+										- these DML commands are :- 
+												1. Insert
+												2. Update
+												3. Delete
+												4. Merge [Aliasing and Joins required for this concept]
+												
+	1. Insert :-  - It is used to insert data into table.
+	
+	Method-1 :- 
+	Syntax :- insert into tablename values (value1, value2,...);
+	
+	SQL > create table student(roll number(5), name varchar2(10));
+	  Table created
+	SQL > insert into student values (23453, 'AJAY');
+		ROLL_NO		  NAME
+		-------------------
+		23454		  AJAY
+		
+		
+	Method-2 :- using substitutional operator '&'
+				[& = enter values for]
+	Syntax :- insert into tablename (&col1, &col2,...);
+	
+	SQL > create table std( roll number(5), name varchar2(10));
+	  table created
+	SQL > insert into std values (&roll, '&name');
+	  Enter value for roll:- 234
+	  Enter value for name:- AJAY
+	  old1: insert into std values (&roll, '&name');
+	  new1: insert into std values (234, 'AJAY');
+	SQL > / [it re-runs the previous code]
+	  Enter value for roll:- 345
+	  Enter value for name:- BINOY
+	  old1: insert into std values (&roll, '&name');
+	  new1: insert into std values (345, 'BINOY');
+	SQL > select * from std;
+	    ROLL		  NAME
+		-------------------
+		234		      AJAY
+		345			 BINOY
+		
+	Method-3 :- Skipping columns
+	Syntax :- insert into tablename (col1, col2,...) values (value1, value2, ...);
+	
+	SQL > insert into std ( name ) values ('BLUE');
+	  1 row created 
+	SQL > select * from std;
+	    ROLL		  NAME
+		-------------------
+		234		      AJAY
+		345			 BINOY
+					  BLUE
+	
+	Note :- If we want to insert data in a perticular column but not in all columns then we should go for this method.
+	
+	
+	2. Update:-  It is used to change the data within a table.
+	Syntax :- update tablename set columnname = newvalue where column = old value;
+	
+	SQL > create table emp1 as select * from emp;
+	  table created 
+	SQL > update emp1 set sal = 2000 where sno = 7369;
+	  1 row updated
+	
+	* Add a new column address to the existing table :-
+	Syntax :- alter table tablename newcolname datatype(size);
+	
+	SQL > alter table std add phno number(10);
+	  table created
+	SQL > select * from std;
+	    ROLL		  NAME		PHNO
+		-----------------------------
+		234		      AJAY
+		345			 BINOY
+					  BLUE
+					  
+	3. Delete :- It is used to delete row or all rows from a table
+	Syntax :- delete from tablename; --> deletes all rows
+	
+	SQL > delete from std;
+	  3 rows deleted
+	  
+	Syntax :- delete from tablename where conditions;
+	
+	SQL > delete from std where roll = 234;
+	  1 row deleted 
+	SQL > select * from std;
+	    ROLL		  NAME		PHNO
+		-----------------------------
+		345			 BINOY  <--- row deleted
+					  BLUE
+					  
+	* Get back deleted data :- 
+	SQL > rollback;
+	  Rollback complete
+	SQL > select * from std;
+	    ROLL		  NAME		PHNO
+		-----------------------------
+		234		      AJAY <--- row rolled back
+		345			 BINOY
+					  BLUE
+					  
+	* Difference between delete and truncate :- 
+		- Whenever we are using delete from tablename ; then delete data automatically stored in a buffer.
+		  We can also get it back this deleted data by using "rollback" command.
+		  
+		- Whenever we are using truncate table tablename; then total data permanently deleted from table and
+		  we can't get back these data by using rollback;
+		  
+3. DQL - Data Query Language :- In all relational database if we want to fetch a data from table then we must use select statement.
+
+	Syntax :- Select col1, col2 ...from tablename;
+	
+	Q > WAQ to fetch employee name and their salary.
+	SQL > select ename, sal from emp;
+	
+	* Aliasing the column name :-  - Aliasing means giving temporary name to a column or table in a query to make it easier to read or write.
+	- We use 'as' keyword for aliasing the column name. The aliasing is done only for a particular output.
+	SQL > select ename as emp_name from emp;
+	  14 rows selected 
+	SQL > select ename as emp name from emp;
+							  *
+		Error at line 1 : From keyword not found where expected.
+		
+	SQL > select ename as "emp name" from emp;
+	
+	Note :- We have to use double qoute for alias name in the following 2 scenerios :- 
+	        1. If alias name is more than one word.
+			2. If we want to maintain same case.
+			
+	SQL > select ename emp_name from emp;
+	
+	If we want to write any name after columnname without comma then that will be considered as alias name ( no need to write as )
+	
+	SQl > select ename job from emp;
+	  14 rows selected
+	  
+	SQL > select job from emp;
+	    JOB
+	 ----------
+	 clerk
+	 salesman
+	 manager
+	 manager
+	 salesman
+	 president
+	 clerk
+	 
+	-> Since many jobs are repeating if we want each job to be retrieved only once then er should go for "distinct" keyword.
+	SQL > select distinct job from emp;
+	    JOB
+	 ----------
+	 clerk
+	 salesman
+	 manager
+	 president
+	
