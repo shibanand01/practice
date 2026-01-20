@@ -1,0 +1,33 @@
+System Class in Java :- 
+- It's a built-in utility class in java that performs all the System-level operations like standard input/output, time exiting the program, and accessing system properties/environment variables.
+- These functions are done by the help of the InStream/PrintStream .. etc class..
+
+read() ->
+	-	System.in.read()
+
+InStream/ PrintStream ( As of --System.in/ System.out)
+- InStreamReader - this class helps to convert the inputs from the keyboard received in form of byte code --> to char format..
+			  -> Keyboard → System.in → Scanner/BufferedReader → Program
+
+- PrintStream - this class helps to convert the character output of the program into bytes and give it back to the OS for display.
+			-> Program → System.out → Console Screen
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+class Rough {
+    public static void main(String[] args)throws Exception {
+        System.out.println("Enter the number : ");
+        // int num = System.in.read();
+
+        // System.out.println(num-48);
+
+        InputStreamReader in = new InputStreamReader(System.in); // system.in takes input in byte format and stored in InputStream class 														which will convert it into char type
+        BufferedReader bf = new BufferedReader(in);
+
+        int num = Integer.parseInt(bf.readLine());
+        System.out.println(num);
+        bf.close(); 
+    }
+}
+
