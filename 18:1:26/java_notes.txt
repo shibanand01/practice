@@ -18,16 +18,19 @@ import java.io.InputStreamReader;
 class Rough {
     public static void main(String[] args)throws Exception {
         System.out.println("Enter the number : ");
-        // int num = System.in.read();
+        // int num = System.in.read(); // reads byte-by-byte --output would be the Ascii value of the char
 
         // System.out.println(num-48);
 
-        InputStreamReader in = new InputStreamReader(System.in); // system.in takes input in byte format and stored in InputStream class 														which will convert it into char type
-        BufferedReader bf = new BufferedReader(in);
+        InputStreamReader in = new InputStreamReader(System.in); // system.in takes input in byte format and stored in InputStream class 																		which will convert it into char type
+        BufferedReader bf = new BufferedReader(in);//can read a whole line using readLine()--without eat read() would read byte-by-byte
 
         int num = Integer.parseInt(bf.readLine());
         System.out.println(num);
         bf.close(); 
     }
 }
+BufferReader :- It reads chunks of text data efficiently.
+	hence its used to read data and then the data is converted from binary to character by the use of InStreamReader also given out by PrintStream.
+
 
